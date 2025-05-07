@@ -4,6 +4,7 @@ import UserModel from "../models/user.model";
 import { encrypt } from "../utils/encryption";
 import { generateToken } from "../utils/jwt";
 import { IReqUser } from "../utils/interfaces";
+import response from "../utils/response";
 
 type TRegister = {
   fullName: string;
@@ -72,17 +73,9 @@ export default {
         password,
       });
 
-      res.status(200).json({
-        message: "Pendaftaran berhasil!",
-        data: result,
-      });
+      response.success(res, result, "success registration");
     } catch (error) {
-      const err = error as unknown as Error;
-
-      res.status(400).json({
-        message: err.message,
-        data: null,
-      });
+      response.error(res, error, "failed registration");
     }
   },
 
@@ -110,20 +103,14 @@ export default {
       });
 
       if (!userByIdentifier) {
-        return res.status(403).json({
-          message: "User tidak ditemukan",
-          data: null,
-        });
+        return response.unauthorized(res, "user not found");
       }
 
       const validatePassword: boolean =
         encrypt(password) === userByIdentifier.password;
 
       if (!validatePassword) {
-        return res.status(403).json({
-          message: "User tidak ditemukan",
-          data: null,
-        });
+        return response.unauthorized(res, "user not found");
       }
 
       const token = generateToken({
@@ -131,17 +118,9 @@ export default {
         role: userByIdentifier.role,
       });
 
-      res.status(200).json({
-        message: "Login berhasil",
-        data: token,
-      });
+      response.success(res, token, "login success");
     } catch (error) {
-      const err = error as unknown as Error;
-
-      res.status(400).json({
-        message: err.message,
-        data: null,
-      });
+      response.error(res, error, "login failed");
     }
   },
 
@@ -157,17 +136,9 @@ export default {
       const user = req.user;
       const result = await UserModel.findById(user?.id);
 
-      res.status(200).json({
-        message: "Berhasil mendapatkan profile user",
-        data: result,
-      });
+      response.success(res, result, "success get user profile");
     } catch (error) {
-      const err = error as unknown as Error;
-
-      res.status(400).json({
-        message: err.message,
-        data: null,
-      });
+      response.error(res, error, "failed get user profile");
     }
   },
 
@@ -194,17 +165,9 @@ export default {
         }
       );
 
-      res.status(200).json({
-        message: "Berhasil aktivasi user",
-        data: user,
-      });
+      response.success(res, user, "user successfully activated");
     } catch (error) {
-      const err = error as unknown as Error;
-
-      res.status(400).json({
-        message: err.message,
-        data: null,
-      });
+      response.error(res, error, "user is failed activated");
     }
   },
 };
