@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import UserModel from "../models/user.model";
 import { encrypt } from "../utils/encryption";
 import { generateToken } from "../utils/jwt";
-import { IReqUser } from "../middlewares/auth.middleware";
+import { IReqUser } from "../utils/interfaces";
 
 type TRegister = {
   fullName: string;
@@ -34,15 +34,11 @@ const registerValidateSchema = Yup.object({
         return regex.test(value);
       }
     )
-    .test(
-      "at-least-one-number",
-      "Minimal terdapat 1 angka",
-      (value) => {
-        if (!value) return false;
-        const regex = /^(?=.*\d)/;
-        return regex.test(value);
-      }
-    ),
+    .test("at-least-one-number", "Minimal terdapat 1 angka", (value) => {
+      if (!value) return false;
+      const regex = /^(?=.*\d)/;
+      return regex.test(value);
+    }),
   confirmPassword: Yup.string()
     .required()
     .oneOf([Yup.ref("password"), ""], "Password not match"),

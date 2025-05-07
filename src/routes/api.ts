@@ -3,6 +3,8 @@ import authController from "../controllers/auth.controller";
 import authMiddleware from "../middlewares/auth.middleware";
 import { ROLES } from "../utils/constant";
 import aclMiddleware from "../middlewares/acl.middleware";
+import mediaMiddleware from "../middlewares/media.middleware";
+import mediaController from "../controllers/media.controller";
 
 const router = express.Router();
 
@@ -11,15 +13,28 @@ router.post("/auth/login", authController.login);
 router.get("/auth/me", authMiddleware, authController.me);
 router.post("/auth/activation", authController.activation);
 
-router.get(
-  "/test-acl",
+router.post(
+  "/media/upload-single",
+  [
+    authMiddleware,
+    aclMiddleware([ROLES.ADMIN, ROLES.USER]),
+    mediaMiddleware.single("file"),
+  ],
+  mediaController.single
+);
+router.post(
+  "/media/upload-multiple",
+  [
+    authMiddleware,
+    aclMiddleware([ROLES.ADMIN, ROLES.USER]),
+    mediaMiddleware.multiple("files"),
+  ],
+  mediaController.multiple
+);
+router.delete(
+  "/media/remove",
   [authMiddleware, aclMiddleware([ROLES.ADMIN, ROLES.USER])],
-  (req: Request, res: Response) => {
-    res.status(200).json({
-      data: "success",
-      message: "OK",
-    });
-  }
+  mediaController.remove
 );
 
 export default router;
