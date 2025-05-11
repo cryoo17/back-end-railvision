@@ -38,6 +38,29 @@ const doc = {
       ActivationRequest: {
         code: "abcdef",
       },
+      CreateCategoryRequest: {
+        name: "",
+        description: "",
+        icon: "",
+      },
+      CreateStationRequest: {
+        name: "Acara - 1 - name",
+        banner:
+          "https://res.cloudinary.com/dwoalvumb/image/upload/v1746681061/ias9gsaxjkq3bxnxo2ql.png",
+        category: "681c3c25b27aca6495a595a5",
+        description: "Acara - Description",
+        startDate: "yyyy-mm-dd hh:mm:ss",
+        endDate: "yyyy-mm-dd hh:mm:ss",
+        location: {
+          region: 3303070017,
+          coordinates: [0.0, 0.0],
+        },
+        isOnline: true,
+        isFeatured: true,
+      },
+      RemoveMediaRequest: {
+        fileUrl: "",
+      },
     },
   },
 };

@@ -1,11 +1,13 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import authController from "../controllers/auth.controller";
 import authMiddleware from "../middlewares/auth.middleware";
-import { ROLES } from "../utils/constant";
 import aclMiddleware from "../middlewares/acl.middleware";
+import { ROLES } from "../utils/constant";
 import mediaMiddleware from "../middlewares/media.middleware";
 import mediaController from "../controllers/media.controller";
 import categoryController from "../controllers/category.controller";
+import regionController from "../controllers/region.controller";
+import stationController from "../controllers/station.controller";
 
 const router = express.Router();
 
@@ -18,18 +20,170 @@ router.post(
   "/category",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   categoryController.create
+  /**
+  #swagger.tags = ["Category"]
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/CreateCategoryRequest"
+    }
+  }
+  */
 );
-router.get("/category", categoryController.findAll);
-router.get("/category/:id", categoryController.findOne);
+router.get(
+  "/category",
+  categoryController.findAll
+  /**
+  #swagger.tags = ["Category"]
+  */
+);
+router.get(
+  "/category/:id",
+  categoryController.findOne
+  /**
+  #swagger.tags = ["Category"]
+  */
+);
 router.put(
   "/category/:id",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   categoryController.update
+  /**
+  #swagger.tags = ["Category"]
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/CreateCategoryRequest"
+    }
+  }
+  */
 );
 router.delete(
   "/category/:id",
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   categoryController.remove
+  /**
+  #swagger.tags = ["Category"]
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  */
+);
+
+router.post(
+  "/stations",
+  [authMiddleware, aclMiddleware([ROLES.ADMIN])],
+  stationController.create
+  /**
+  #swagger.tags = ["stations"]
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/CreateStationRequest"
+    }
+  }
+  */
+);
+router.get(
+  "/stations",
+  stationController.findAll
+  /**
+  #swagger.tags = ["stations"]
+  */
+);
+router.get(
+  "/stations/:id",
+  stationController.findOne
+  /**
+  #swagger.tags = ["stations"]
+  */
+);
+router.put(
+  "/stations/:id",
+  [authMiddleware, aclMiddleware([ROLES.ADMIN])],
+  stationController.update
+  /**
+  #swagger.tags = ["stations"]
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/CreateStationRequest"
+    }
+  }
+  */
+);
+router.delete(
+  "/stations/:id",
+  [authMiddleware, aclMiddleware([ROLES.ADMIN])],
+  stationController.remove
+  /**
+  #swagger.tags = ["stations"]
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  */
+);
+router.get(
+  "/stations/:slug/slug",
+  stationController.findOneBySlug
+  /**
+  #swagger.tags = ["stations"]
+  */
+);
+
+router.get(
+  "/regions",
+  regionController.getAllProvinces
+  /**
+  #swagger.tags = ["Regions"]
+  */
+);
+router.get(
+  "/regions/:id/province",
+  regionController.getProvince
+  /**
+  #swagger.tags = ["Regions"]
+  */
+);
+router.get(
+  "/regions/:id/regency",
+  regionController.getRegency
+  /**
+  #swagger.tags = ["Regions"]
+  */
+);
+router.get(
+  "/regions/:id/district",
+  regionController.getDistrict
+  /**
+  #swagger.tags = ["Regions"]
+  */
+);
+router.get(
+  "/regions/:id/village",
+  regionController.getVillage
+  /**
+  #swagger.tags = ["Regions"]
+  */
+);
+router.get(
+  "/regions-search",
+  regionController.findByCity
+  /**
+  #swagger.tags = ["Regions"]
+  */
 );
 
 router.post(
@@ -40,6 +194,28 @@ router.post(
     mediaMiddleware.single("file"),
   ],
   mediaController.single
+  /**
+  #swagger.tags = ["Media"]
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    content: {
+      "multipart/form-data": {
+        schema : {
+          type: "object",
+          properties: {
+            file: {
+              type: "string",
+              format: "binary"
+            }
+          }
+        }
+      }
+    }
+  }
+  */
 );
 router.post(
   "/media/upload-multiple",
@@ -49,11 +225,48 @@ router.post(
     mediaMiddleware.multiple("files"),
   ],
   mediaController.multiple
+  /**
+  #swagger.tags = ["Media"]
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    content: {
+      "multipart/form-data": {
+        schema : {
+          type: "object",
+          properties: {
+            files: {
+              type: "array",
+              items: {
+                type: "string",
+                format: "binary"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  */
 );
 router.delete(
   "/media/remove",
   [authMiddleware, aclMiddleware([ROLES.ADMIN, ROLES.USER])],
   mediaController.remove
+  /**
+  #swagger.tags = ["Media"]
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/RemoveMediaRequest"
+    }
+  }
+  */
 );
 
 export default router;
