@@ -81,7 +81,7 @@ router.post(
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   stationController.create
   /**
-  #swagger.tags = ["stations"]
+  #swagger.tags = ["Stations"]
   #swagger.security = [{
     "bearerAuth": {}
   }]
@@ -97,14 +97,14 @@ router.get(
   "/stations",
   stationController.findAll
   /**
-  #swagger.tags = ["stations"]
+  #swagger.tags = ["Stations"]
   */
 );
 router.get(
   "/stations/:id",
   stationController.findOne
   /**
-  #swagger.tags = ["stations"]
+  #swagger.tags = ["Stations"]
   */
 );
 router.put(
@@ -112,7 +112,7 @@ router.put(
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   stationController.update
   /**
-  #swagger.tags = ["stations"]
+  #swagger.tags = ["Stations"]
   #swagger.security = [{
     "bearerAuth": {}
   }]
@@ -129,7 +129,7 @@ router.delete(
   [authMiddleware, aclMiddleware([ROLES.ADMIN])],
   stationController.remove
   /**
-  #swagger.tags = ["stations"]
+  #swagger.tags = ["Stations"]
   #swagger.security = [{
     "bearerAuth": {}
   }]
@@ -139,7 +139,7 @@ router.get(
   "/stations/:slug/slug",
   stationController.findOneBySlug
   /**
-  #swagger.tags = ["stations"]
+  #swagger.tags = ["Stations"]
   */
 );
 

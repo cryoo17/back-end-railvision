@@ -2,8 +2,8 @@
   "openapi": "3.0.0",
   "info": {
     "version": "v0.0.1",
-    "title": "Dokumentasi API Acara",
-    "description": "Dokumentasi API Acara"
+    "title": "Dokumentasi API Railvision",
+    "description": "Dokumentasi API Railvision"
   },
   "servers": [
     {
@@ -278,7 +278,7 @@
     "/stations": {
       "post": {
         "tags": [
-          "stations"
+          "Stations"
         ],
         "description": "",
         "responses": {
@@ -309,7 +309,7 @@
       },
       "get": {
         "tags": [
-          "stations"
+          "Stations"
         ],
         "description": "",
         "parameters": [
@@ -345,7 +345,7 @@
     "/stations/{id}": {
       "get": {
         "tags": [
-          "stations"
+          "Stations"
         ],
         "description": "",
         "parameters": [
@@ -366,7 +366,7 @@
       },
       "put": {
         "tags": [
-          "stations"
+          "Stations"
         ],
         "description": "",
         "parameters": [
@@ -407,7 +407,7 @@
       },
       "delete": {
         "tags": [
-          "stations"
+          "Stations"
         ],
         "description": "",
         "parameters": [
@@ -435,7 +435,7 @@
     "/stations/{slug}/slug": {
       "get": {
         "tags": [
-          "stations"
+          "Stations"
         ],
         "description": "",
         "parameters": [
@@ -776,11 +776,11 @@
         "properties": {
           "name": {
             "type": "string",
-            "example": "Acara - 1 - name"
+            "example": "Stasiun Purwokerto"
           },
-          "banner": {
+          "slug": {
             "type": "string",
-            "example": "https://res.cloudinary.com/dwoalvumb/image/upload/v1746681061/ias9gsaxjkq3bxnxo2ql.png"
+            "example": "stasiun-purwokerto"
           },
           "category": {
             "type": "string",
@@ -789,14 +789,6 @@
           "description": {
             "type": "string",
             "example": "Acara - Description"
-          },
-          "startDate": {
-            "type": "string",
-            "example": "yyyy-mm-dd hh:mm:ss"
-          },
-          "endDate": {
-            "type": "string",
-            "example": "yyyy-mm-dd hh:mm:ss"
           },
           "location": {
             "type": "object",
@@ -817,13 +809,9 @@
               }
             }
           },
-          "isOnline": {
-            "type": "boolean",
-            "example": true
-          },
-          "isFeatured": {
-            "type": "boolean",
-            "example": true
+          "banner": {
+            "type": "string",
+            "example": "https://res.cloudinary.com/dwoalvumb/image/upload/v1746681061/ias9gsaxjkq3bxnxo2ql.png"
           }
         },
         "xml": {

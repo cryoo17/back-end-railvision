@@ -3,8 +3,8 @@ import swaggerAutogen from "swagger-autogen";
 const doc = {
   info: {
     version: "v0.0.1",
-    title: "Dokumentasi API Acara",
-    description: "Dokumentasi API Acara",
+    title: "Dokumentasi API Railvision",
+    description: "Dokumentasi API Railvision",
   },
   servers: [
     {
@@ -44,19 +44,16 @@ const doc = {
         icon: "",
       },
       CreateStationRequest: {
-        name: "Acara - 1 - name",
-        banner:
-          "https://res.cloudinary.com/dwoalvumb/image/upload/v1746681061/ias9gsaxjkq3bxnxo2ql.png",
+        name: "Stasiun Purwokerto",
+        slug: "stasiun-purwokerto",
         category: "681c3c25b27aca6495a595a5",
         description: "Acara - Description",
-        startDate: "yyyy-mm-dd hh:mm:ss",
-        endDate: "yyyy-mm-dd hh:mm:ss",
         location: {
           region: 3303070017,
           coordinates: [0.0, 0.0],
         },
-        isOnline: true,
-        isFeatured: true,
+        banner:
+          "https://res.cloudinary.com/dwoalvumb/image/upload/v1746681061/ias9gsaxjkq3bxnxo2ql.png",
       },
       RemoveMediaRequest: {
         fileUrl: "",
