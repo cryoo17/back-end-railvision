@@ -17,27 +17,27 @@ export default {
   },
   async findAll(req: IReqUser, res: Response) {
     try {
-      const {
-        limit = 10,
-        page = 1,
+      const buildQuery = (filter: any) => {
+        let query: FilterQuery<TStation> = {};
+
+        if (filter.search) query.$text = { $search: filter.search };
+        if (filter.category) query.category = filter.category;
+
+        return query;
+      };
+
+      const { limit = 10, page = 1, search, category } = req.query;
+
+      const query = buildQuery({
         search,
-      } = req.query as unknown as IPaginationQuery;
-
-      const query: FilterQuery<TStation> = {};
-
-      if (search) {
-        Object.assign(query, {
-          ...query,
-          $text: {
-            $search: search,
-          },
-        });
-      }
+        category,
+      });
 
       const result = await StationModel.find(query)
-        .limit(10)
-        .skip((page - 1) * limit)
+        .limit(+limit)
+        .skip((+page - 1) * +limit)
         .sort({ createdAt: -1 })
+        .lean()
         .exec();
       const count = await StationModel.countDocuments(query);
 
@@ -47,7 +47,7 @@ export default {
         {
           current: +page,
           total: count,
-          totalPages: Math.ceil(count / limit),
+          totalPages: Math.ceil(count / +limit),
         },
         "success find all stations"
       );
