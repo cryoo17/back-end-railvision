@@ -70,7 +70,7 @@ const StationSchema = new Schema<Station>(
   {
     timestamps: true,
   }
-);
+).index({ name: "text" });
 
 StationSchema.pre("save", function () {
   if (!this.slug) {
