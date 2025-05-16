@@ -12,7 +12,12 @@ export const stationDAO = Yup.object({
   createdBy: Yup.string().required(),
   createdAt: Yup.string(),
   updatedAt: Yup.string(),
-  location: Yup.object().required(),
+  location: Yup.object()
+    .shape({
+      region: Yup.number(),
+      coordinates: Yup.array(),
+    })
+    .required(),
 });
 
 export type TStation = Yup.InferType<typeof stationDAO>;

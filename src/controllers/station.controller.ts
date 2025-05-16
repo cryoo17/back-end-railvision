@@ -45,7 +45,7 @@ export default {
         res,
         result,
         {
-          current: page,
+          current: +page,
           total: count,
           totalPages: Math.ceil(count / limit),
         },
