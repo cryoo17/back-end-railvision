@@ -15,6 +15,40 @@ router.post("/auth/register", authController.register);
 router.post("/auth/login", authController.login);
 router.get("/auth/me", authMiddleware, authController.me);
 router.post("/auth/activation", authController.activation);
+router.put(
+  "/auth/update-profile",
+  [authMiddleware, aclMiddleware([ROLES.ADMIN, ROLES.USER])],
+  authController.updateProfile
+  /*
+  #swagger.tags = ['Auth']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/UpdateProfileRequest"
+    }
+  }
+  */
+);
+router.put(
+  "/auth/update-password",
+  [authMiddleware, aclMiddleware([ROLES.ADMIN, ROLES.USER])],
+  authController.updatePassword
+  /*
+  #swagger.tags = ['Auth']
+  #swagger.security = [{
+    "bearerAuth": {}
+  }]
+  #swagger.requestBody = {
+    required: true,
+    schema: {
+      $ref: "#/components/schemas/UpdatePasswordRequest"
+    }
+  }
+  */
+);
 
 router.post(
   "/category",
