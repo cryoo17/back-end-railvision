@@ -13,6 +13,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@tensorflow/tfjs-node": "^4.22.0",
     "@types/body-parser": "^1.19.5",
     "@types/cors": "2.8.17",
     "@types/dotenv": "^6.1.1",
