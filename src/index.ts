@@ -4,14 +4,11 @@ import bodyParser from "body-parser";
 import db from "./utils/database";
 import docs from "./docs/route";
 import cors from "cors";
-import inferenceService from "./utils/inference";
 
 async function init() {
   try {
     const result = await db();
     console.log("Database status: ", result);
-
-    await inferenceService.loadModel();
 
     const app = express();
 

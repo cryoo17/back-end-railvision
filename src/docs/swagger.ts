@@ -56,7 +56,7 @@ const doc = {
         name: "Stasiun Purwokerto",
         slug: "stasiun-purwokerto",
         category: "681c3c25b27aca6495a595a5",
-        description: "Acara - Description",
+        description: "Description",
         location: {
           region: 3303070017,
           coordinates: [0.0, 0.0],

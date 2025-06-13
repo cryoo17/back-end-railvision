@@ -8,7 +8,6 @@ import mediaController from "../controllers/media.controller";
 import categoryController from "../controllers/category.controller";
 import regionController from "../controllers/region.controller";
 import stationController from "../controllers/station.controller";
-import predictionController from "../controllers/prediction.controller";
 
 const router = express.Router();
 
@@ -299,58 +298,6 @@ router.delete(
     required: true,
     schema: {
       $ref: "#/components/schemas/RemoveMediaRequest"
-    }
-  }
-  */
-);
-
-router.post(
-  "/predict",
-  [authMiddleware], // Middleware mediaMiddleware dihapus
-  predictionController.predict
-  /**
-  #swagger.tags = ["Prediction"]
-  #swagger.summary = "Predict image classification using a trained model via Cloudinary URL"
-  #swagger.description = "Provide a Cloudinary image URL to get its classification from the ML model."
-  #swagger.security = [{
-    "bearerAuth": {}
-  }]
-  #swagger.requestBody = {
-    required: true,
-    content: {
-      "application/json": {
-        schema: {
-          type: "object",
-          properties: {
-            imageUrl: {
-              type: "string",
-              format: "uri",
-              example: "https://res.cloudinary.com/your-cloud/image/upload/v123456/sample.jpg"
-            }
-          },
-          required: ["imageUrl"]
-        }
-      }
-    }
-  }
-  #swagger.responses[200] = {
-    description: "Prediction successful",
-    schema: {
-      type: "object",
-      properties: {
-        label: { type: "string", example: "SANGAT_PADAT" },
-        confidence: { type: "number", example: 0.98 },
-        allScores: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              label: { type: "string" },
-              score: { type: "number" }
-            }
-          }
-        }
-      }
     }
   }
   */
